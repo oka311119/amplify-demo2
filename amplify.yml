@@ -1,21 +1,17 @@
 version: 1
-applicationsapplications:
-  - appRoot: my-app
-    backend:
-      phases:
-        # IMPORTANT - Please verify your build commands
-        build:
-          commands:
-            - "# Execute Amplify CLI with the helper script"
-            - npm run dev
-    frontend:
-      phases:
-        build:
-          commands: []
-      artifacts:
-        # IMPORTANT - Please verify your build output directory
-        baseDirectory: .next
-        files:
-          - "**/*"
-      cache:
-        paths: []
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd my-app
+        - yarn install
+    build:
+      commands:
+        - yarn run build
+  artifacts:
+    baseDirectory: my-app/.next
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
